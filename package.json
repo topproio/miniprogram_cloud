@@ -23,6 +23,9 @@
         "url": "https://github.com/topproio/miniprogram_cloud_blog/issues"
     },
     "homepage": "https://github.com/topproio/miniprogram_cloud_blog#readme",
+    "dependencies": {
+        "lodash": ">=4.17.5"
+    },
     "devDependencies": {
         "autoprefixer": "^9.3.1",
         "gulp": "^3.9.1",
