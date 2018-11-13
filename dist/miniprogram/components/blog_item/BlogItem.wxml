@@ -1,0 +1,24 @@
+<view class="blog__item">
+	<view class="blog__header">
+        <image class="blog-avatar" src="{{item.userInfo.avatarUrl || './images/avatar.jpg'}}" mode="aspectFill" />
+        <view class="blog-user">
+            <view class="blog-nickname">{{item.userInfo.nickName}}</view>
+            <view class="blog-date">{{item.createTime}}</view>
+        </view>
+    </view>
+    <view class="blog__article">
+        <view class="blog__text">{{item.logContent}}</view>
+        <view class="blog-image__list" wx:if="{{item.photoUrlArr.length}}">
+            <view class="blog-image__item"
+                  wx:for="{{item.photoUrlArr}}"
+                  wx:key="{{photoUrlIndex}}"
+                  wx:for-item="photoUrl"
+                  wx:for-index="photoUrlIndex">
+                <view class="blog-image__wrap">
+                    <image class="blog-image" src="{{photoUrl}}" mode="aspectFill" />
+                </view>
+            </view>
+        </view>
+    </view>
+    <slot name="footer"></slot>
+</view>

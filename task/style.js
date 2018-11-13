@@ -9,8 +9,9 @@ const OUTPUT_PATH = 'dist';
 
 const TARGET_PATH = [
     'src/miniprogram/app.less',
-    'src/miniprogram/style/*.less',
-    'src/miniprogram/pages/**/*.less'
+    'src/miniprogram/assets/style/*.less',
+    'src/miniprogram/pages/**/*.less',
+    'src/miniprogram/components/**/*.less'
 ]
 
 gulp.task('style', function() {

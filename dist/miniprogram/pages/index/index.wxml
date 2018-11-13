@@ -1,4 +1,20 @@
 <!--index.wxml-->
 <view class="container">
-    <view>Helle World</view>
+    <block wx:for="{{blogArr}}"
+           wx:key="{{blog._id}}"
+           wx:for-item="blog"
+           wx:for-index="index">
+        <c-blog-item  class="blog-item" item="{{blog}}">
+            <view class="blog__footer" slot="footer">
+                <view class="footer__item" hover-class="hover-class">
+                    <image class="item__icon" src="../../assets/images/like.png" mode="aspectFit" />
+                    <text class="item__text">122</text>
+                </view>
+                <view class="footer__item" wx:if="{{blog.isCreator}}" hover-class="hover-class">
+                    <image class="item__icon" src="../../assets/images/delete.png" mode="aspectFit" />
+                    <text class="item__text">删除</text>
+                </view>
+            </view>
+        </c-blog-item>
+    </block>
 </view>

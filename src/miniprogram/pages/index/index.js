@@ -1,5 +1,19 @@
 Page({
+    data: {
+        blogArr: []
+    },
+
     onLoad: function() {
-        console.log('haha');
+        const that = this;
+
+        wx.cloud.callFunction({
+            name: 'api',
+            data: {
+                controller: 'BlogController',
+                action: 'fetchList'
+            }
+        }).then(({result}) => {
+            that.setData({ blogArr: result });
+        });
     }
 });

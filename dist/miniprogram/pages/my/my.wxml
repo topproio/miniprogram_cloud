@@ -1,0 +1,21 @@
+<!--pages/home/home.wxml-->
+<view class="container">
+	<view class="my-banner">
+        <image class="my-avatar" src="{{avatarUrl || '../../assets/images/avatar.jpg'}} " mode="aspectFill" />
+		<view class="my-desc">
+			<view class="my-nickname textflow">{{nickName}}</view>
+			<view class="my-desc__asdie textflow">获赞赏数: 12</view>
+		</view>
+	</view>
+
+	<view class="utils-list">
+		<view class="utils-item" hover-class="hover-class">
+			<view class="utils-item__icon write__icon"></view>
+			<view class="utils-item__title">发布心情</view>
+		</view>
+		<view class="utils-item" hover-class="hover-class">
+			<view class="utils-item__icon like__icon"></view>
+			<view class="utils-item__title">点赞列表</view>
+		</view>
+	</view>
+</view>

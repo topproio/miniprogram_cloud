@@ -1,4 +1,7 @@
 {
+    "usingComponents": {
+        "c-blog-item": "/components/blog_item/BlogItem"
+    },
     "enablePullDownRefresh": true,
     "onReachBottomDistance": 50
 }

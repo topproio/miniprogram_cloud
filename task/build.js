@@ -7,17 +7,17 @@ const TARGET_STATIC_PATH = [
     'src/cloudfunctions/**/*',
     'src/miniprogram/app.json',
     'src/miniprogram/app.js',
-    'src/miniprogram/images/*',
-    'src/miniprogram/pages/**/*',
+    'src/miniprogram/**/*',
 ];
 
-const TARGET_STYLE_PATH = [
+const TARGET_IGNORE_PATH = [
     '!src/miniprogram/app.less',
-    '!src/miniprogram/style/*.less',
-    '!src/miniprogram/pages/**/*.less'
+    '!src/miniprogram/assets/style/*.less',
+    '!src/miniprogram/pages/**/*.less',
+    '!src/miniprogram/components/**/*.less'
 ];
 
-const TARGET_PATH = TARGET_STATIC_PATH.concat(TARGET_STYLE_PATH)
+const TARGET_PATH = TARGET_STATIC_PATH.concat(TARGET_IGNORE_PATH)
 
 gulp.task('build', function() {
     gulp
