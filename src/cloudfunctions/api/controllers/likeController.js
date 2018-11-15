@@ -1,8 +1,10 @@
 const likesModel = require('../models/likesModel');
+const LogsModel = require('../models/LogsModel');
 const cloud = require('wx-server-sdk');
 
 cloud.init();
 const db = cloud.database();
+const _ = db.command;
 
 const likeController = {
     /* option
@@ -12,6 +14,9 @@ const likeController = {
         const { OPENID } = auth;
         const { blogId } = option;
         const createTime = db.serverDate();
+
+        const hasBlog = await LogsModel.isExist(blogId);
+        if (!hasBlog) return false;
 
         let ret = await likesModel.create({ OPENID, blogId, createTime});
         return ret;
@@ -34,7 +39,9 @@ const likeController = {
     likeCount: async function(auth) {
         const { OPENID } = auth;
 
-        const count = await likesModel.LikeCount({ OPENID });
+        const blogIdArr = await LogsModel.BlogIdByUser(OPENID);
+        const count = await likesModel.LikeCount({ blogId: _.in(blogIdArr) });
+        console.log(blogIdArr);
         return count;
     }
 };

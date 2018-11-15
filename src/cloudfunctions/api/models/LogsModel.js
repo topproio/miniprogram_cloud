@@ -22,11 +22,21 @@ const LogsModel = {
 
         return res;
     },
+    BlogIdByUser: function(OPENID) {
+        return db.collection(collection)
+            .where({OPENID})
+            .field({ _id: true })
+            .get()
+            .then(res => res.data.map(item => item._id));
+    },
     create: function(data) {
         return db.collection(collection).add({ data });
     },
     delete: function(id) {
         return db.collection(collection).doc(id).remove();
+    },
+    isExist: function(_id) {
+        return db.collection(collection).where({ _id }).get().then(res => !!res.data.length);
     }
 };
 

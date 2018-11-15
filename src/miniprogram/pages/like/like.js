@@ -1,4 +1,7 @@
 import dataStore from '../../utils/dataStore';
+import date from '../../utils/date';
+
+const { pattern } = date;
 
 let fetchBlogOption = {
     page: 1,
@@ -98,6 +101,7 @@ Page({
         // 增加点赞加载状态
         return BlogArr.map(blog => {
             blog.likeLoad = false;
+            blog.createTime = pattern(blog.createTime, 'yyyy-MM-dd HH:mm:ss');
             return blog;
         });
     },

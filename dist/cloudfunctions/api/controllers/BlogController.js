@@ -72,7 +72,6 @@ const BlogController = {
 
         // 修改时间格式和是否创建者字段
         blogArr = data.map(blog => {
-            blog.createTime = new Date(blog.createTime).toLocaleTimeString();
             blog.isCreator = blog.OPENID === OPENID;
             return blog;
         });
