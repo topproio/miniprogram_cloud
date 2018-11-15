@@ -3,7 +3,7 @@ import dataStore from '../../utils/dataStore';
 Page({
     data: {
         nickName: {},
-        avatarUrl: 0
+        avatarUrl: ''
     },
 
     onLoad: function() {

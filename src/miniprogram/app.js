@@ -10,7 +10,7 @@ App({
             });
         }
 
-        this.checkUserInfo();
+        // this.checkUserInfo();
     },
     checkUserInfo: function() {
         wx.getUserInfo({

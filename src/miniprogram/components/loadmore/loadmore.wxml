@@ -1,0 +1,11 @@
+<!--components/loadmore/loadmore.wxml-->
+<view class="loadmore-container" wx:if="{{isload && !isEmtry}}">
+	<view class="loadmore-icon">
+		<view class="loadmore-transparent"></view>
+	</view>
+	<view class="loadmore-txt">加载中...</view>
+</view>
+
+<view class="loadmore-container" wx:if="{{isEmtry}}">
+	<view class="loadmore-emtry"></view>
+</view>

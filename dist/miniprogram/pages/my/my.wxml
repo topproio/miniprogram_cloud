@@ -12,6 +12,7 @@
 		<view class="utils-item" hover-class="hover-class">
 			<view class="utils-item__icon write__icon"></view>
 			<view class="utils-item__title">发布心情</view>
+            <navigator class="utils-link" url="/pages/write/write" open-type="navigate"></navigator>
 		</view>
 		<view class="utils-item" hover-class="hover-class">
 			<view class="utils-item__icon like__icon"></view>

@@ -1,8 +1,9 @@
 {
     "pages": [
+        "pages/GetUserInfo/GetUserInfo",
         "pages/index/index",
         "pages/my/my",
-        "pages/GetUserInfo/GetUserInfo"
+        "pages/write/write"
     ],
     "tabBar": {
         "color": "#999",
