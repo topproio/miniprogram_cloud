@@ -21,20 +21,29 @@ const likesModel = {
             .get()
             .then(res => res.data);
     },
-    listWithUser: function(OPENID) {
-        return db.collection(collection)
-        .where({ OPENID })
-        .field({ blogId: true })
-        .get()
-        .then(res => {
-            return res.data.map(item => item.blogId);
-        });
+    listWithUser: function(OPENID, {page = 1, paginate = 20} = {}) {
+        let res = db.collection(collection).orderBy('createTime', 'desc').where({ OPENID });
+
+        const skip = (page - 1) * paginate;
+        if (skip) { // 如果不是第一页指定序列
+            res = res.skip(skip);
+        }
+
+        return res.limit(paginate)
+            .field({ blogId: true })
+            .get()
+            .then(res => {
+                return res.data.map(item => item.blogId);
+            });
     },
     fethcLikeIdByBlogId: function(blogId) {
         return db.collection(collection)
         .where({ blogId })
         .field({ _id: true })
-        .get();
+        .get()
+        .then(res => {
+            return res.data.map(item => item._id);
+        });
     },
     hasLike: function(blogId, OPENID) {
         return db.collection(collection)

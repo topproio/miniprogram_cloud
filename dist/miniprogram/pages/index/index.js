@@ -13,7 +13,7 @@ Page({
     },
 
     onLoad: function() {
-        dataStore.put('indexPage', this);
+        dataStore.put('IndexPage', this);
 
         this.fetchBlogRequestEvent().then(result => {
             this.setData({ blogArr: result });
@@ -43,7 +43,7 @@ Page({
         fetchBlogOption.page++;
         this.fetchBlogRequestEvent().then(result => {
             const blogArr = this.data.blogArr.concat(result);
-            this.setData({ blogArr: blogArr });
+            this.setData({ blogArr });
         });
     },
 

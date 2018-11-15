@@ -22,9 +22,6 @@ const LogsModel = {
 
         return res;
     },
-    ListWithLike: function(OPENID, {page = 1, paginate = 20} = {}) {
-        let res = db.collection(likeCollection).where({ OPENID }).get();
-    },
     create: function(data) {
         return db.collection(collection).add({ data });
     },

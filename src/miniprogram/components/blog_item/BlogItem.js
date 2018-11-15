@@ -22,5 +22,14 @@ Component({
     data: {
     },
     methods: {
+        previewImage: function(evt) {
+            const { url, index } = evt.currentTarget.dataset;
+
+            const { photoUrlArr } = this.data.item;
+            wx.previewImage({
+                current: url,
+                urls: photoUrlArr
+            });
+        }
     }
 });

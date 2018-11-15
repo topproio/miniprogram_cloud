@@ -4,7 +4,7 @@
         <image class="my-avatar" src="{{avatarUrl || '../../assets/images/avatar.jpg'}} " mode="aspectFill" />
 		<view class="my-desc">
 			<view class="my-nickname textflow">{{nickName}}</view>
-			<view class="my-desc__asdie textflow">获赞赏数: {{likeCount}}</view>
+			<view class="my-desc__asdie textflow">获赞数: {{likeCount}}</view>
 		</view>
 	</view>
 

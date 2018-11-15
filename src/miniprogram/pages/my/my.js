@@ -19,7 +19,8 @@ Page({
     onPullDownRefresh: function() {
         this.likeCountRequest().then(({result}) => {
             this.setData({ likeCount: result });
-        });
+            wx.stopPullDownRefresh();
+        }).catch(wx.stopPullDownRefresh);
     },
 
     likeCountRequest: function() {

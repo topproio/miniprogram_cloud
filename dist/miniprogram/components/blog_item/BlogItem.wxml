@@ -14,7 +14,7 @@
                   wx:key="{{photoUrlIndex}}"
                   wx:for-item="photoUrl"
                   wx:for-index="photoUrlIndex">
-                <view class="blog-image__wrap">
+                <view class="blog-image__wrap" bindtap="previewImage" data-url="{{photoUrl}}">
                     <image class="blog-image" src="{{photoUrl}}" mode="aspectFill" />
                 </view>
             </view>

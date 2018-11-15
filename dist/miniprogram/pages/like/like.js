@@ -16,6 +16,8 @@ Page({
         this.fetchBlogRequestEvent().then(result => {
             this.setData({ blogArr: result });
         });
+
+        const IndexPage = dataStore.get('IndexPage');
     },
 
     onPullDownRefresh: function() {
@@ -34,7 +36,7 @@ Page({
         fetchBlogOption.page++;
         this.fetchBlogRequestEvent().then(result => {
             const blogArr = this.data.blogArr.concat(result);
-            this.setData({ blogArr: blogArr });
+            this.setData({ blogArr });
         });
     },
 
