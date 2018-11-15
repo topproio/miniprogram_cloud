@@ -30,6 +30,12 @@ const likeController = {
 
         await likesModel.delete(likeId);
         return true;
+    },
+    likeCount: async function(auth) {
+        const { OPENID } = auth;
+
+        const count = await likesModel.LikeCount({ OPENID });
+        return count;
     }
 };
 

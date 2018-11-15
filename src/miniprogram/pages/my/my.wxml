@@ -4,7 +4,7 @@
         <image class="my-avatar" src="{{avatarUrl || '../../assets/images/avatar.jpg'}} " mode="aspectFill" />
 		<view class="my-desc">
 			<view class="my-nickname textflow">{{nickName}}</view>
-			<view class="my-desc__asdie textflow">获赞赏数: 12</view>
+			<view class="my-desc__asdie textflow">获赞赏数: {{likeCount}}</view>
 		</view>
 	</view>
 
@@ -17,6 +17,7 @@
 		<view class="utils-item" hover-class="hover-class">
 			<view class="utils-item__icon like__icon"></view>
 			<view class="utils-item__title">点赞列表</view>
+            <navigator class="utils-link" url="/pages/like/like" open-type="navigate"></navigator>
 		</view>
 	</view>
 </view>

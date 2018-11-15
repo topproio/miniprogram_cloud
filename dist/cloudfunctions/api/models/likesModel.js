@@ -11,6 +11,9 @@ const likesModel = {
     delete: function(likeId) {
         return db.collection(collection).doc(likeId).remove();
     },
+    deleteByWhere: function(where) {
+        return db.collection(collection).where(where).remove();
+    },
     show: function(OPENID, blogId) {
         return db.collection(collection)
             .where({ OPENID, blogId })
@@ -18,13 +21,31 @@ const likesModel = {
             .get()
             .then(res => res.data);
     },
+    listWithUser: function(OPENID) {
+        return db.collection(collection)
+        .where({ OPENID })
+        .field({ blogId: true })
+        .get()
+        .then(res => {
+            return res.data.map(item => item.blogId);
+        });
+    },
+    fethcLikeIdByBlogId: function(blogId) {
+        return db.collection(collection)
+        .where({ blogId })
+        .field({ _id: true })
+        .get();
+    },
     hasLike: function(blogId, OPENID) {
-        return db.collection(collection).where({ blogId, OPENID }).get().then(({data}) => {
+        return db.collection(collection)
+        .where({ blogId, OPENID })
+        .get()
+        .then(({data}) => {
             return !!data.length;
         });
     },
-    LikeCount: function(blogId) {
-        return db.collection(collection).where({ blogId }).count().then(({total}) => total);
+    LikeCount: function(where) {
+        return db.collection(collection).where(where).count().then(({total}) => total);
     }
 };
 

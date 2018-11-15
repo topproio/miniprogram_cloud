@@ -4,8 +4,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    height: 40rpx;
-    margin: 20rpx 0;
+    padding: 20rpx 0;
 
     .loadmore-icon {
         margin: 0 10rpx;
@@ -50,15 +49,13 @@
             background: linear-gradient(to left, #666 0, #666 44%, transparent 45%, transparent 55%, #666 56%, #666 100%);
         }
 
-        &:after{
-            content: '';
+        .loadmore-txt{
             display: inline-block;
+            height: 40rpx;
+            line-height: 40rpx;
             vertical-align: top;
-            width: 8rpx;
-            height: 8rpx;
-            margin-top: 16rpx;
-            border-radius: 50%;
-            background-color: #666;
+            font-size: 28rpx;
+            color: #666;
         }
     }
 }

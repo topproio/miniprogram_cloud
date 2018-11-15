@@ -13,17 +13,9 @@ Page({
     },
 
     onLoad: function() {
-        dataStore.put('indexPage', this);
-
         this.fetchBlogRequestEvent().then(result => {
             this.setData({ blogArr: result });
         });
-    },
-
-    onShow: function() {
-        if (dataStore.get('hasNewBlog')) {
-            wx.startPullDownRefresh();
-        }
     },
 
     onPullDownRefresh: function() {
@@ -32,7 +24,6 @@ Page({
 
         this.fetchBlogRequestEvent().then(result => {
             this.setData({ blogArr: result });
-            dataStore.put('hasNewBlog', false);
             wx.stopPullDownRefresh();
         }).catch(wx.stopPullDownRefresh);
     },
@@ -53,7 +44,7 @@ Page({
             name: 'api',
             data: {
                 controller: 'BlogController',
-                action: 'fetchList',
+                action: 'fetchListWithLike',
                 option: fetchBlogOption
             }
         }).then(res => {
@@ -68,14 +59,6 @@ Page({
         }).catch(err => {
             this.setData({ isload: false });
             return err;
-        });
-    },
-
-    transformBlogData: function(BlogArr) {
-        // 增加点赞加载状态
-        return BlogArr.map(blog => {
-            blog.likeLoad = false;
-            return blog;
         });
     },
 
@@ -106,6 +89,14 @@ Page({
                 action: 'delete',
                 option
             }
+        });
+    },
+
+    transformBlogData: function(BlogArr) {
+        // 增加点赞加载状态
+        return BlogArr.map(blog => {
+            blog.likeLoad = false;
+            return blog;
         });
     },
 

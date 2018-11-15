@@ -7,5 +7,7 @@
 </view>
 
 <view class="loadmore-container" wx:if="{{isEmtry}}">
-	<view class="loadmore-emtry"></view>
+	<view class="loadmore-emtry">
+        <view class="loadmore-txt">空</view>
+    </view>
 </view>

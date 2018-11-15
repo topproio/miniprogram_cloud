@@ -1,0 +1,32 @@
+
+<view class="container">
+    <block wx:for="{{blogArr}}"
+           wx:key="{{blog._id}}"
+           wx:for-item="blog"
+           wx:for-index="index">
+        <c-blog-item  class="blog-item" item="{{blog}}">
+            <view class="blog__footer" slot="footer">
+                <view class="footer__item {{blog.likeLoad ? 'opacity4' : ''}}"
+                      hover-class="hover-class"
+                      bindtap="likeBlogHandle"
+                      data-id="{{blog._id}}"
+                      data-index="{{index}}">
+                    <image class="item__icon" src="{{blog.hasLike ? '../../assets/images/like_active.png' : '../../assets/images/like.png'}}" mode="aspectFit" />
+                    <text class="item__text">{{ blog.likeCount }}</text>
+                </view>
+                <view class="footer__item"
+                      wx:if="{{blog.isCreator}}"
+                      hover-class="hover-class"
+                      bindtap="deleteBlogHandle"
+                      data-id="{{blog._id}}"
+                      data-photoIds="{{blog.photoIds}}"
+                      data-index="{{index}}">
+                    <image class="item__icon" src="../../assets/images/delete.png" mode="aspectFit" />
+                    <text class="item__text">删除</text>
+                </view>
+            </view>
+        </c-blog-item>
+    </block>
+
+    <c-loadmore isload="{{isload}}" isEmtry="{{isEmtry}}"></c-loadmore>
+</view>

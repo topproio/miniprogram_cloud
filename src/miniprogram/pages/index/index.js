@@ -13,6 +13,8 @@ Page({
     },
 
     onLoad: function() {
+        dataStore.put('indexPage', this);
+
         this.fetchBlogRequestEvent().then(result => {
             this.setData({ blogArr: result });
         });
@@ -40,11 +42,6 @@ Page({
 
         fetchBlogOption.page++;
         this.fetchBlogRequestEvent().then(result => {
-            if (!result.length) { // 如果没有
-                this.setData({ isEmtry: true });
-                return;
-            }
-
             const blogArr = this.data.blogArr.concat(result);
             this.setData({ blogArr: blogArr });
         });
@@ -61,6 +58,12 @@ Page({
             }
         }).then(res => {
             this.setData({ isload: false });
+
+            if (!res.result.length) { // 如果没有
+                this.setData({ isEmtry: true });
+                return [];
+            }
+
             return this.transformBlogData(res.result);
         }).catch(err => {
             this.setData({ isload: false });
