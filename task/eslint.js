@@ -1,16 +1,9 @@
 const gulp = require('gulp');
 const eslint = require('gulp-eslint');
 const TARGET_PATH = [
+    'src/miniprogram/**/*.js',
     'src/cloudfunctions/**/*.js',
-
-    'src/cloudfunctions/api/controllers/*.js',
-    'src/cloudfunctions/api/models/*.js',
-    'src/cloudfunctions/api/utils/*.js',
-
-    'src/miniprogram/app.js',
-    'src/miniprogram/pages/**/*.js',
-    'src/miniprogram/utils/*.js',
-    'src/miniprogram/components/**/*.js'
+    '!node_modules/**'
 ]
 
 gulp.task('eslint', () => {

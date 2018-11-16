@@ -11,7 +11,7 @@ class Bus {
     }
 
     on(name, handler) {
-        if (!handler instanceof Function) {
+        if (!(handler instanceof Function)) {
             throw Error('第二个参数应该是函数,但获取的是' + typeof handler);
         }
 
@@ -20,7 +20,6 @@ class Bus {
         } else {
             this._watcher[name] = [handler];
         }
-
         return this;
     }
 
@@ -31,6 +30,14 @@ class Bus {
             handler.apply(null, args);
         });
 
+        return this;
+    }
+
+    off(name, handler) {
+        const index = this._watcher[name].indexOf(handler);
+
+        if (index < 0) return this;
+        this._watcher[name].splice(index, 1);
         return this;
     }
 }

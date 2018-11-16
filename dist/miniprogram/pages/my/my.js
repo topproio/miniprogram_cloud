@@ -20,6 +20,11 @@ Page({
             .on('mulLike', this.$OnMulLike);
     },
 
+    onUnload: function() {
+        bus.off('likeEvent', this.$OnLikeEvent)
+            .off('mulLike', this.$OnMulLike);
+    },
+
     onPullDownRefresh: function() {
         this.likeCountRequest().then(({result}) => {
             this.setData({ likeCount: result });

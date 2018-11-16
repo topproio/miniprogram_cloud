@@ -8,9 +8,9 @@
     </view>
     <view class="blog__article">
         <view class="blog__text">{{item.logContent}}</view>
-        <view class="blog-image__list" wx:if="{{item.photoUrlArr.length}}">
+        <view class="blog-image__list" wx:if="{{item.photoIds.length}}">
             <view class="blog-image__item"
-                  wx:for="{{item.photoUrlArr}}"
+                  wx:for="{{item.photoIds}}"
                   wx:key="{{photoUrlIndex}}"
                   wx:for-item="photoUrl"
                   wx:for-index="photoUrlIndex">

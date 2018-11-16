@@ -1,4 +1,3 @@
-import dataStore from '../../utils/dataStore';
 import date from '../../utils/date';
 import bus from '../../utils/bus';
 
@@ -20,8 +19,6 @@ Page({
         this.fetchBlogRequestEvent().then(result => {
             this.setData({ blogArr: result });
         });
-
-        const IndexPage = dataStore.get('IndexPage');
     },
 
     onPullDownRefresh: function() {

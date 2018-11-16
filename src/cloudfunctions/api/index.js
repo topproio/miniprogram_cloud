@@ -9,7 +9,7 @@ exports.main = (event) => {
     const _controller = require(path.join(__dirname, './controllers/' + controller));
 
     const auth = cloud.getWXContext();
-    const data = _controller[action]( auth, option );
+    const data = _controller[action]( auth, option )
 
     return data;
 };

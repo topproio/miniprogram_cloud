@@ -14,7 +14,6 @@ Component({
                 createTime: '', // 博客创建时间
                 logContent: '', // 博客日志
                 photoIds: [], // 博客图片id集合
-                photoUrlArr: [], // 博客图片地址集合
                 isCreator: false // 是否创建者
             },
         }
@@ -23,12 +22,12 @@ Component({
     },
     methods: {
         previewImage: function(evt) {
-            const { url, index } = evt.currentTarget.dataset;
+            const { url } = evt.currentTarget.dataset;
 
-            const { photoUrlArr } = this.data.item;
+            const { photoIds } = this.data.item;
             wx.previewImage({
                 current: url,
-                urls: photoUrlArr
+                urls: photoIds
             });
         }
     }

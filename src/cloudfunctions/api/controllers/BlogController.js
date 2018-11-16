@@ -1,6 +1,5 @@
 const LogsModel = require('../models/LogsModel');
 const likesModel = require('../models/LikesModel');
-const { getTempFileURLById } = require('../utils/file');
 const cloud = require('wx-server-sdk');
 
 cloud.init();
@@ -62,8 +61,7 @@ const BlogController = {
 
         // 删除微博
         const PromiseForDeleteBlog = LogsModel.delete(id);
-
-        // cloud.deleteFile({ fileList: photoids });
+        cloud.deleteFile({ fileList: photoids });
         return Promise.all([PromiseForDeleteLike, PromiseForDeleteBlog]);
     },
     // 处理微博格式
@@ -74,13 +72,6 @@ const BlogController = {
         blogArr = data.map(blog => {
             blog.isCreator = blog.OPENID === OPENID;
             return blog;
-        });
-
-        // 使用图片id获取图片地址
-        const PromiseAllForPhoto = blogArr.map(blog => {
-            return getTempFileURLById(blog.photoIds).then(photoUrlArr => {
-                blog.photoUrlArr = photoUrlArr;
-            });
         });
 
         // 获取微博是否被点赞
@@ -97,7 +88,7 @@ const BlogController = {
             });
         });
 
-        return Promise.all(PromiseAllForPhoto.concat(PromiseAllForHasLike, PromiseAllForLikeCount)).then(() => blogArr);
+        return Promise.all(PromiseAllForHasLike.concat(PromiseAllForLikeCount)).then(() => blogArr);
     }
 };
 

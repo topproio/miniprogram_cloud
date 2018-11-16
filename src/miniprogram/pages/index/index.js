@@ -10,8 +10,6 @@ let fetchBlogOption = {
     paginate: 10
 };
 
-let BusLock = false;
-
 Page({
     data: {
         blogArr: [],
@@ -23,12 +21,14 @@ Page({
         bus.on('deleteBlogEvent', this.$OnDeleteBlogEvent)
             .on('likeEvent', this.$OnLikeEvent);
 
-
-        dataStore.put('IndexPage', this);
-
         this.fetchBlogRequestEvent().then(result => {
             this.setData({ blogArr: result });
         });
+    },
+
+    onUnload: function() {
+        bus.off('deleteBlogEvent', this.$OnDeleteBlogEvent)
+            .off('likeEvent', this.$OnLikeEvent);
     },
 
     onShow: function() {
@@ -128,7 +128,7 @@ Page({
 
     likeBlogHandle: function(evt) {
         const { id, index } = evt.currentTarget.dataset;
-        let { likeLoad, likeCount, hasLike } = this.data.blogArr[index];
+        let { likeLoad, hasLike } = this.data.blogArr[index];
         if (likeLoad) return;
 
         const likeLoadKey = `blogArr[${index}].likeLoad`;
@@ -138,7 +138,7 @@ Page({
         _requestFunc({blogId: id}).then(() => {
             this.setData({ [likeLoadKey]: false });
             bus.emit('likeEvent', id, hasLike);
-        }).catch(err => {
+        }).catch(() => {
             this.setData({ [likeLoadKey]: false });
         });
     },
