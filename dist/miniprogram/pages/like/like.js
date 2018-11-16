@@ -1,5 +1,6 @@
 import dataStore from '../../utils/dataStore';
 import date from '../../utils/date';
+import bus from '../../utils/bus';
 
 const { pattern } = date;
 
@@ -78,9 +79,16 @@ Page({
 
                 const {id, photoids, index} = evt.currentTarget.dataset;
                 that.deleteBlogRequest({id, photoids}).then(() => {
+                    const { hasLike } = that.data.blogArr[index];
+
                     that.data.blogArr.splice(index, 1);
                     that.setData({ blogArr: that.data.blogArr });
                     wx.hideLoading();
+
+                    bus.emit('deleteBlogEvent', id);
+                    if (hasLike) {
+                        bus.emit('mulLike');
+                    }
                 }).catch(wx.hideLoading);
             }
         });
@@ -115,6 +123,7 @@ Page({
         this.setData({ [likeLoadKey]: true });
 
         const _requestFunc = hasLike ? this.unLikeRequest : this.likeRequest;
+
         _requestFunc({blogId: id}).then(() => {
             const likeCountKey = `blogArr[${index}].likeCount`;
             const hasLikeKey = `blogArr[${index}].hasLike`;
@@ -122,6 +131,7 @@ Page({
             const newCount = hasLike ? likeCount - 1 : likeCount + 1;
 
             this.setData({ [likeLoadKey]: false, [likeCountKey]: newCount, [hasLikeKey]: !hasLike });
+            bus.emit('likeEvent', id, hasLike);
         }).catch(() => {
             this.setData({ [likeLoadKey]: false });
         });
@@ -131,7 +141,7 @@ Page({
         return wx.cloud.callFunction({
             name: 'api',
             data: {
-                controller: 'likeController',
+                controller: 'LikeController',
                 action: 'like',
                 option
             }
@@ -142,7 +152,7 @@ Page({
         return wx.cloud.callFunction({
             name: 'api',
             data: {
-                controller: 'likeController',
+                controller: 'LikeController',
                 action: 'unLike',
                 option
             }

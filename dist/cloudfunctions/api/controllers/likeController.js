@@ -1,4 +1,4 @@
-const likesModel = require('../models/likesModel');
+const likesModel = require('../models/LikesModel');
 const LogsModel = require('../models/LogsModel');
 const cloud = require('wx-server-sdk');
 
@@ -6,7 +6,7 @@ cloud.init();
 const db = cloud.database();
 const _ = db.command;
 
-const likeController = {
+const LikeController = {
     /* option
     ** @key blogId {string} 微博id
     */
@@ -46,4 +46,4 @@ const likeController = {
     }
 };
 
-module.exports = likeController;
+module.exports = LikeController;

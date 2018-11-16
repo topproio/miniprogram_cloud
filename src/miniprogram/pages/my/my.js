@@ -1,4 +1,5 @@
 import dataStore from '../../utils/dataStore';
+import bus from '../../utils/bus';
 
 Page({
     data: {
@@ -14,6 +15,9 @@ Page({
         this.likeCountRequest().then(({result}) => {
             this.setData({ likeCount: result });
         });
+
+        bus.on('likeEvent', this.$OnLikeEvent)
+            .on('mulLike', this.$OnMulLike);
     },
 
     onPullDownRefresh: function() {
@@ -27,9 +31,19 @@ Page({
         return wx.cloud.callFunction({
             name: 'api',
             data: {
-                controller: 'likeController',
+                controller: 'LikeController',
                 action: 'likeCount'
             }
         });
+    },
+
+    $OnLikeEvent: function(id, hasLike) {
+        let likeCount = hasLike ? this.data.likeCount - 1 : this.data.likeCount + 1;
+        this.setData({ likeCount });
+    },
+
+    $OnMulLike: function() {
+        let likeCount = this.data.likeCount - 1;
+        this.setData({ likeCount });
     }
 });

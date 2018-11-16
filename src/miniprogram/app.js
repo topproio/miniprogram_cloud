@@ -9,17 +9,5 @@ App({
                 traceUser: true,
             });
         }
-
-        this.checkUserInfo();
-    },
-    checkUserInfo: function() {
-        wx.getUserInfo({
-            success: function(res) {
-                dataStore.put('userInfo', res.userInfo);
-            },
-            fail: function() {
-                wx.reLaunch({ url: '/pages/GetUserInfo/GetUserInfo'});
-            }
-        });
-    },
+    }
 });

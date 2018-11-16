@@ -1,5 +1,5 @@
 const LogsModel = require('../models/LogsModel');
-const likesModel = require('../models/likesModel');
+const likesModel = require('../models/LikesModel');
 const { getTempFileURLById } = require('../utils/file');
 const cloud = require('wx-server-sdk');
 

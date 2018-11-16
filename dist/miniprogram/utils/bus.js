@@ -1,0 +1,39 @@
+class Bus {
+    static getInstance() {
+        if (!Bus.instance) {
+            Bus.instance = new Bus();
+        }
+        return Bus.instance;
+    }
+
+    constructor() {
+        this._watcher = {};
+    }
+
+    on(name, handler) {
+        if (!handler instanceof Function) {
+            throw Error('第二个参数应该是函数,但获取的是' + typeof handler);
+        }
+
+        if (this._watcher[name]) {
+            this._watcher[name].push(handler);
+        } else {
+            this._watcher[name] = [handler];
+        }
+
+        return this;
+    }
+
+    emit(name) {
+        if (!this._watcher[name]) return;
+        const args = Array.prototype.slice.call(arguments, 1);
+        this._watcher[name].forEach(handler => {
+            handler.apply(null, args);
+        });
+
+        return this;
+    }
+}
+
+
+export default Bus.getInstance();

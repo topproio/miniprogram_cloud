@@ -1,5 +1,6 @@
 import dataStore from '../../utils/dataStore';
 import date from '../../utils/date';
+import bus from '../../utils/bus';
 
 const { pattern } = date;
 
@@ -9,6 +10,8 @@ let fetchBlogOption = {
     paginate: 10
 };
 
+let BusLock = false;
+
 Page({
     data: {
         blogArr: [],
@@ -17,6 +20,10 @@ Page({
     },
 
     onLoad: function() {
+        bus.on('deleteBlogEvent', this.$OnDeleteBlogEvent)
+            .on('likeEvent', this.$OnLikeEvent);
+
+
         dataStore.put('IndexPage', this);
 
         this.fetchBlogRequestEvent().then(result => {
@@ -95,9 +102,14 @@ Page({
 
                 const {id, photoids, index} = evt.currentTarget.dataset;
                 that.deleteBlogRequest({id, photoids}).then(() => {
+                    const { hasLike } = that.data.blogArr[index];
                     that.data.blogArr.splice(index, 1);
                     that.setData({ blogArr: that.data.blogArr });
                     wx.hideLoading();
+
+                    if (hasLike) {
+                        bus.emit('mulLike');
+                    }
                 }).catch(wx.hideLoading);
             }
         });
@@ -124,12 +136,8 @@ Page({
 
         const _requestFunc = hasLike ? this.unLikeRequest : this.likeRequest;
         _requestFunc({blogId: id}).then(() => {
-            const likeCountKey = `blogArr[${index}].likeCount`;
-            const hasLikeKey = `blogArr[${index}].hasLike`;
-
-            const newCount = hasLike ? likeCount - 1 : likeCount + 1;
-
-            this.setData({ [likeLoadKey]: false, [likeCountKey]: newCount, [hasLikeKey]: !hasLike });
+            this.setData({ [likeLoadKey]: false });
+            bus.emit('likeEvent', id, hasLike);
         }).catch(err => {
             this.setData({ [likeLoadKey]: false });
         });
@@ -139,7 +147,7 @@ Page({
         return wx.cloud.callFunction({
             name: 'api',
             data: {
-                controller: 'likeController',
+                controller: 'LikeController',
                 action: 'like',
                 option
             }
@@ -150,10 +158,33 @@ Page({
         return wx.cloud.callFunction({
             name: 'api',
             data: {
-                controller: 'likeController',
+                controller: 'LikeController',
                 action: 'unLike',
                 option
             }
         });
+    },
+
+    $OnDeleteBlogEvent: function(id) {
+        let { blogArr } = this.data;
+        const deleteItem = blogArr.find(item => item._id === id);
+        if (!deleteItem) return;
+
+        const index = blogArr.indexOf(deleteItem);
+        blogArr.splice(index, 1);
+        this.setData({ blogArr });
+    },
+
+    $OnLikeEvent: function(id, hasLike) {
+        let { blogArr } = this.data;
+        const likeItem = blogArr.find(item => item._id === id);
+        if (!likeItem) return;
+        const index = blogArr.indexOf(likeItem);
+        const { likeCount } = this.data.blogArr[index];
+        const likeCountKey = `blogArr[${index}].likeCount`;
+        const hasLikeKey = `blogArr[${index}].hasLike`;
+
+        const newCount = hasLike ? likeCount - 1 : likeCount + 1;
+        this.setData({ [likeCountKey]: newCount, [hasLikeKey]: !hasLike });
     }
 });
