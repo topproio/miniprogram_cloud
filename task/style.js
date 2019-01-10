@@ -4,19 +4,14 @@ const rename = require('gulp-rename');
 const postcss = require('gulp-postcss');
 const cssnano = require('gulp-cssnano');
 const autoprefixer = require('autoprefixer');
+const config = require('../gulp.config');
 
-const OUTPUT_PATH = 'dist';
-
-const TARGET_PATH = [
-    'src/miniprogram/app.less',
-    'src/miniprogram/assets/style/*.less',
-    'src/miniprogram/pages/**/*.less',
-    'src/miniprogram/components/**/*.less'
-]
+const TARGET_PATH = config.style_paths;
+const OUTPUT_PATH = config.output_path;
 
 gulp.task('style', function() {
     gulp
-        .src(TARGET_PATH, { base: 'src' })
+        .src(TARGET_PATH, { base: config.target_path })
         .pipe(less())
         .pipe(postcss([autoprefixer(['iOS >= 8', 'Android >= 4.1'])]))
         .pipe(

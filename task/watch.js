@@ -1,9 +1,10 @@
 const gulp = require('gulp');
+const config = require('../gulp.config');
 const gulpSequence = require('gulp-sequence');
 
 gulp.task('watch', function() {
-    gulp.watch('src/**', function () {
-        gulpSequence('eslint', 'style', 'build')(function (err) {
+    gulp.watch(config.target_path + '/**', function () {
+        gulpSequence('script', 'style', 'build')(function (err) {
             if (err) console.log(err)
         })
     });

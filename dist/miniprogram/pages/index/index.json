@@ -1,8 +1,0 @@
-{
-    "usingComponents": {
-        "c-blog-item": "/components/blog_item/BlogItem",
-        "c-loadmore": "/components/loadmore/loadmore"
-    },
-    "enablePullDownRefresh": true,
-    "onReachBottomDistance": 90
-}

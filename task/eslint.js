@@ -1,15 +1,12 @@
 const gulp = require('gulp');
+const config = require('../gulp.config');
 const eslint = require('gulp-eslint');
-const TARGET_PATH = [
-    'src/miniprogram/**/*.js',
-    'src/cloudfunctions/**/*.js',
-    '!node_modules/**'
-]
+
+const TARGET_PATH = config.script_paths.concat(config.ignore_paths)
+const configFile = config.eslint_path;
 
 gulp.task('eslint', () => {
     gulp.src(TARGET_PATH)
-        .pipe(eslint({
-            configFile: './.eslintrc.js'
-        }))
+        .pipe(eslint({ configFile }))
         .pipe(eslint.format());
 });

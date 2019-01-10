@@ -1,7 +1,10 @@
-import dom from '../../utils/dom';
-import dataStore from '../../utils/dataStore';
-import date from '../../utils/date';
+const dom = require('../../utils/dom');
+const dataStore = require('../../utils/dataStore');
+const date = require('../../utils/date');
 
+const asyncValidator = require('async-validator');
+
+console.log(asyncValidator);
 const { inputBuilding } = dom;
 const { pattern } = date;
 

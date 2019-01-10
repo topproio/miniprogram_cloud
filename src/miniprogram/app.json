@@ -1,10 +1,10 @@
 {
     "pages": [
+        "pages/write/write",
         "pages/loading/loading",
         "pages/index/index",
         "pages/GetUserInfo/GetUserInfo",
         "pages/my/my",
-        "pages/write/write",
         "pages/like/like"
     ],
     "tabBar": {
